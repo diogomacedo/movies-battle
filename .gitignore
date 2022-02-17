@@ -1,0 +1,14 @@
+# Arquivos #
+*.jar
+*.war
+*.class
+*.log
+.classpath
+.project
+.DS_Store
+.factorypath
+
+# Diretórios #
+target/
+data/
+.settings/
