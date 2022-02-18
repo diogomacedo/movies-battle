@@ -1,0 +1,430 @@
+{
+	"info": {
+		"_postman_id": "dce24905-96f4-4d56-8b12-45c6a604a632",
+		"name": "movies-battle",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Obter usuário",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "c5e48e09-2508-4d72-a68a-6d554b389e41",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "user",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/movies-battle/usuarios/100",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies-battle",
+						"usuarios",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar usuário",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "roserosa01",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "vitoria123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nomeUsuario\": \"roserosa01\",\n    \"senha\": \"vitoria123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/movies-battle/usuarios/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies-battle",
+						"usuarios",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar usuários",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "vitoria123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "roserosa01",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/movies-battle/usuarios",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies-battle",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Salvar usuário",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nomeCompleto\": \"Diogo Rodrigo Rosa Macedo\",\n    \"nomeUsuario\": \"diogomacedo\",\n    \"senha\": \"12345678\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/movies-battle/usuarios",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies-battle",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar filmes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "vitoria123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "roserosa01",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/movies-battle/filmes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies-battle",
+						"filmes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar partidas",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "roserosa01",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "vitoria123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/movies-battle/partidas",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies-battle",
+						"partidas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Iniciar partida",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "roserosa01",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "vitoria123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/movies-battle/partidas/iniciar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies-battle",
+						"partidas",
+						"iniciar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Encerrar partida",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "roserosa01",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "vitoria123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/movies-battle/partidas/encerrar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies-battle",
+						"partidas",
+						"encerrar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obter rodada",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "roserosa01",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "vitoria123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/movies-battle/rodadas/proxima",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies-battle",
+						"rodadas",
+						"proxima"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Responder rodada",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "roserosa01",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "vitoria123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/movies-battle/rodadas/resposta?filmeEscolhido=tt4287320",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies-battle",
+						"rodadas",
+						"resposta"
+					],
+					"query": [
+						{
+							"key": "filmeEscolhido",
+							"value": "tt4287320"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
