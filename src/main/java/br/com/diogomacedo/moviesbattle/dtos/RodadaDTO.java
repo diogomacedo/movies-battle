@@ -1,5 +1,7 @@
 package br.com.diogomacedo.moviesbattle.dtos;
 
+import java.time.Instant;
+
 import org.springframework.util.ObjectUtils;
 
 import br.com.diogomacedo.moviesbattle.entities.RodadaEntity;
@@ -15,11 +17,13 @@ public class RodadaDTO {
 	private FilmeDTO filmeUm;
 	private FilmeDTO filmeDois;
 	private FilmeDTO filmeEscolhido;
+	private Instant inicio;
+	private Instant fim;
 
 	@Override
 	public String toString() {
 		return "RodadaDTO [id=" + id + ", partida=" + partida + ", filmeUm=" + filmeUm + ", filmeDois=" + filmeDois
-				+ ", filmeEscolhido=" + filmeEscolhido + "]";
+				+ ", filmeEscolhido=" + filmeEscolhido + ", inicio=" + inicio + ", fim=" + fim + "]";
 	}
 
 	public RodadaEntity toEntity() {
@@ -34,6 +38,8 @@ public class RodadaDTO {
 		if (!ObjectUtils.isEmpty(this.filmeDois)) {
 			rodada.setFilmeDois(this.filmeDois.toEntity());
 		}
+		rodada.setInicio(this.inicio);
+		rodada.setFim(this.fim);
 		return rodada;
 	}
 

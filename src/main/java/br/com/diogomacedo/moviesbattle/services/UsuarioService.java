@@ -13,7 +13,7 @@ public interface UsuarioService {
 
 	UsuarioDTO buscar(Long idUsuario);
 
-	UsuarioDTO buscar(String nomeUsuario);
+	UsuarioEntity buscar(String nomeUsuario);
 
 	UsuarioEntity buscar(String nomeUsuario, String senha);
 

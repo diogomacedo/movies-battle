@@ -80,4 +80,12 @@ public class UsuarioEntity implements Persistable<Long>, Serializable {
 		return usuario;
 	}
 
+	public UsuarioDTO toDTOSimples() {
+		UsuarioDTO usuario = new UsuarioDTO();
+		usuario.setNomeCompleto(this.nomeCompleto);
+		usuario.setNomeUsuario(this.nomeUsuario);
+		return usuario;
+	}
+
+
 }

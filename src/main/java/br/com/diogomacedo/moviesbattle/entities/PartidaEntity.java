@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,7 +39,7 @@ public class PartidaEntity implements Serializable {
 	@Column(name = "id_partida")
 	private Long id;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario")
 	private UsuarioEntity usuario;
 
@@ -68,6 +69,26 @@ public class PartidaEntity implements Serializable {
 		partida.setFim(this.fim);
 		if (!CollectionUtils.isEmpty(this.rodadas)) {
 			List<RodadaDTO> rodadas = this.rodadas.stream().map(rodada -> rodada.toDTO()).collect(Collectors.toList());
+			partida.setRodadas(rodadas);
+		}
+		return partida;
+	}
+
+	public PartidaDTO toDTOSimples() {
+		PartidaDTO partida = new PartidaDTO();
+		partida.setId(this.id);
+		if (!ObjectUtils.isEmpty(this.usuario)) {
+			UsuarioDTO usuarioDTO = this.usuario.toDTOSimples();
+			partida.setUsuario(usuarioDTO);
+		}
+		partida.setInicio(this.inicio);
+		partida.setFim(this.fim);
+		if (!CollectionUtils.isEmpty(this.rodadas)) {
+			List<RodadaDTO> rodadas = this.rodadas.stream().map(rodada -> {
+				RodadaDTO rodadaDTO = new RodadaDTO();
+				rodadaDTO.setId(rodada.getId());
+				return rodadaDTO;
+			}).collect(Collectors.toList());
 			partida.setRodadas(rodadas);
 		}
 		return partida;

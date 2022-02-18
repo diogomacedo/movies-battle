@@ -1,10 +1,12 @@
 package br.com.diogomacedo.moviesbattle.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +34,7 @@ public class RodadaEntity implements Serializable {
 	@Column(name = "id_rodada")
 	private Long id;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_partida")
 	private PartidaEntity partida;
 
@@ -48,17 +50,23 @@ public class RodadaEntity implements Serializable {
 	@JoinColumn(name = "id_filme_escolhido")
 	private FilmeEntity filmeEscolhido;
 
+	@Column(name = "inicio")
+	private Instant inicio;
+
+	@Column(name = "fim")
+	private Instant fim;
+
 	@Override
 	public String toString() {
 		return "RodadaEntity [id=" + id + ", partida=" + partida + ", filmeUm=" + filmeUm + ", filmeDois=" + filmeDois
-				+ ", filmeEscolhido=" + filmeEscolhido + "]";
+				+ ", filmeEscolhido=" + filmeEscolhido + ", inicio=" + inicio + ", fim=" + fim + "]";
 	}
 
 	public RodadaDTO toDTO() {
 		RodadaDTO rodada = new RodadaDTO();
 		rodada.setId(this.id);
 		if (!ObjectUtils.isEmpty(this.partida)) {
-			rodada.setPartida(this.partida.toDTO());
+			rodada.setPartida(this.partida.toDTOSimples());
 		}
 		if (!ObjectUtils.isEmpty(this.filmeUm)) {
 			rodada.setFilmeUm(this.filmeUm.toDTO());
@@ -69,6 +77,8 @@ public class RodadaEntity implements Serializable {
 		if (!ObjectUtils.isEmpty(this.filmeEscolhido)) {
 			rodada.setFilmeEscolhido(this.filmeEscolhido.toDTO());
 		}
+		rodada.setInicio(this.inicio);
+		rodada.setFim(this.fim);
 		return rodada;
 	}
 

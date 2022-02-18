@@ -39,12 +39,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public UsuarioDTO buscar(String nomeUsuario) {
+	public UsuarioEntity buscar(String nomeUsuario) {
 		UsuarioEntity usuario = this.repository.findByNomeUsuarioIgnoreCase(nomeUsuario);
-		if (usuario != null) {
-			return usuario.toDTO();
-		}
-		return null;
+		return usuario;
 	}
 
 	@Override
