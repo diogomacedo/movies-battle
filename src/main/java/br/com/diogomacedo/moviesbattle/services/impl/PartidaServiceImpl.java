@@ -21,7 +21,6 @@ import br.com.diogomacedo.moviesbattle.entities.UsuarioEntity;
 import br.com.diogomacedo.moviesbattle.exceptions.RegraDeNegocioException;
 import br.com.diogomacedo.moviesbattle.repositories.PartidaRepository;
 import br.com.diogomacedo.moviesbattle.services.PartidaService;
-import br.com.diogomacedo.moviesbattle.services.RodadaService;
 
 @Transactional
 @Service
@@ -32,9 +31,6 @@ public class PartidaServiceImpl implements PartidaService {
 
 	@Autowired
 	private PartidaRepository partidaRepository;
-
-	@Autowired
-	private RodadaService rodadaService;
 
 	@Override
 	public PartidaDTO iniciar() {
@@ -106,7 +102,7 @@ public class PartidaServiceImpl implements PartidaService {
 		int qtdeTotalDeRodadas = rodadasDaPartida.size();
 		int qtdeRodadasRespondidasCorretamente = rodadaRespondidasCorretamente.size();
 
-		float porcentagemAcertos = ((float)qtdeRodadasRespondidasCorretamente / qtdeTotalDeRodadas) * 100;
+		float porcentagemAcertos = ((float) qtdeRodadasRespondidasCorretamente / qtdeTotalDeRodadas) * 100;
 
 		Instant dataHoraAtual = Instant.now();
 

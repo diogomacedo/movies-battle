@@ -46,8 +46,6 @@ public class RodadaServiceImpl implements RodadaService {
 				.filter(rodada -> rodada.getFilmeEscolhido() == null && rodada.getFim() == null)
 				.collect(Collectors.toList());
 
-//		List<RodadaEntity> rodadas = this.repository.findByPartidaAndFilmeEscolhidoIsNullAndFimIsNull(partidaAtual);
-
 		if (!CollectionUtils.isEmpty(rodadasPendentes)) {
 
 			if (rodadasPendentes.size() > 1) {
@@ -107,8 +105,6 @@ public class RodadaServiceImpl implements RodadaService {
 		List<RodadaEntity> rodadasPendentes = rodadasDaPartida.stream()
 				.filter(rodada -> rodada.getFilmeEscolhido() == null && rodada.getFim() == null)
 				.collect(Collectors.toList());
-
-//		List<RodadaEntity> rodadas = this.repository.findByPartidaAndFilmeEscolhidoIsNullAndFimIsNull(partidaAtual);
 
 		if (CollectionUtils.isEmpty(rodadasPendentes)) {
 			throw new RegraDeNegocioException("Erro ao responder a rodada atual",

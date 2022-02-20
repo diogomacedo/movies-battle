@@ -19,6 +19,13 @@ public class PartidaController {
 	private PartidaService service;
 
 	@ResponseBody
+	@GetMapping
+	public Page<PartidaDTO> listar() {
+		Page<PartidaDTO> partidas = this.service.listar(0, 10);
+		return partidas;
+	}
+
+	@ResponseBody
 	@PostMapping("/iniciar")
 	public PartidaDTO iniciar() throws Exception {
 		PartidaDTO partidaDTO = this.service.iniciar();
@@ -30,13 +37,6 @@ public class PartidaController {
 	public PartidaDTO encerrar() throws Exception {
 		PartidaDTO partidaDTO = this.service.encerrar();
 		return partidaDTO;
-	}
-
-	@ResponseBody
-	@GetMapping
-	public Page<PartidaDTO> listar() {
-		Page<PartidaDTO> partidas = this.service.listar(0, 10);
-		return partidas;
 	}
 
 }
