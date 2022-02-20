@@ -22,6 +22,7 @@ public class PartidaDTO {
 	private Instant inicio;
 	private Instant fim;
 	private List<RodadaDTO> rodadas;
+	private Float porcentagemDeAcertos;
 
 	@Override
 	public String toString() {
@@ -39,9 +40,11 @@ public class PartidaDTO {
 		partida.setInicio(this.inicio);
 		partida.setFim(this.fim);
 		if (!CollectionUtils.isEmpty(this.rodadas)) {
-			List<RodadaEntity> rodadas = this.rodadas.stream().map(rodada -> rodada.toEntity()).collect(Collectors.toList());
+			List<RodadaEntity> rodadas = this.rodadas.stream().map(rodada -> rodada.toEntity())
+					.collect(Collectors.toList());
 			partida.setRodadas(rodadas);
 		}
+		partida.setPorcentagemDeAcertos(this.porcentagemDeAcertos);
 		return partida;
 	}
 

@@ -2,6 +2,7 @@ package br.com.diogomacedo.moviesbattle.services.impl;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,11 +14,14 @@ import org.springframework.util.ObjectUtils;
 
 import br.com.diogomacedo.moviesbattle.components.LoginUtils;
 import br.com.diogomacedo.moviesbattle.dtos.PartidaDTO;
+import br.com.diogomacedo.moviesbattle.entities.FilmeEntity;
 import br.com.diogomacedo.moviesbattle.entities.PartidaEntity;
+import br.com.diogomacedo.moviesbattle.entities.RodadaEntity;
 import br.com.diogomacedo.moviesbattle.entities.UsuarioEntity;
 import br.com.diogomacedo.moviesbattle.exceptions.RegraDeNegocioException;
 import br.com.diogomacedo.moviesbattle.repositories.PartidaRepository;
 import br.com.diogomacedo.moviesbattle.services.PartidaService;
+import br.com.diogomacedo.moviesbattle.services.RodadaService;
 
 @Transactional
 @Service
@@ -28,6 +32,9 @@ public class PartidaServiceImpl implements PartidaService {
 
 	@Autowired
 	private PartidaRepository partidaRepository;
+
+	@Autowired
+	private RodadaService rodadaService;
 
 	@Override
 	public PartidaDTO iniciar() {
@@ -69,11 +76,46 @@ public class PartidaServiceImpl implements PartidaService {
 					"O usuário '" + partidaAtual.getUsuario().getNomeUsuario() + "' ainda não iniciou uma partida.");
 		}
 
+		return this.encerrar(partidaAtual);
+
+	}
+
+	@Override
+	public PartidaDTO encerrar(PartidaEntity partida) throws Exception {
+
+		if (ObjectUtils.isEmpty(partida)) {
+			throw new RegraDeNegocioException("Erro ao finalizar uma partida",
+					"A partida que está sendo encerrada é inválida.");
+		}
+
+		List<RodadaEntity> rodadasDaPartida = partida.getRodadas();
+
+		List<RodadaEntity> rodadaRespondidasCorretamente = rodadasDaPartida.stream().filter(rodada -> {
+			FilmeEntity filmeComMaiorPontuacao = null;
+			if (rodada.getFilmeUm().getPontuacao() > rodada.getFilmeDois().getPontuacao()) {
+				filmeComMaiorPontuacao = rodada.getFilmeUm();
+			} else {
+				rodada.getFilmeDois();
+			}
+			if (rodada.getFilmeEscolhido() == filmeComMaiorPontuacao) {
+				return true;
+			}
+			return false;
+		}).collect(Collectors.toList());
+
+		int qtdeTotalDeRodadas = rodadasDaPartida.size();
+		int qtdeRodadasRespondidasCorretamente = rodadaRespondidasCorretamente.size();
+
+		float porcentagemAcertos = ((float)qtdeRodadasRespondidasCorretamente / qtdeTotalDeRodadas) * 100;
+
 		Instant dataHoraAtual = Instant.now();
 
-		partidaAtual.setFim(dataHoraAtual);
+		partida.setFim(dataHoraAtual);
+		partida.setPorcentagemDeAcertos(porcentagemAcertos);
 
-		return partidaAtual.toDTO();
+		this.partidaRepository.save(partida);
+
+		return partida.toDTO();
 
 	}
 

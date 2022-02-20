@@ -1,10 +1,12 @@
 package br.com.diogomacedo.moviesbattle.services.impl;
 
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -38,19 +40,35 @@ public class RodadaServiceImpl implements RodadaService {
 
 		PartidaEntity partidaAtual = this.partidaService.obterPartidaAtual();
 
-		List<RodadaEntity> rodadas = this.repository.findByPartidaAndFilmeEscolhidoIsNull(partidaAtual);
+		List<RodadaEntity> rodadasDaPartida = this.repository.findByPartida(partidaAtual);
 
-		if (!CollectionUtils.isEmpty(rodadas)) {
+		List<RodadaEntity> rodadasPendentes = rodadasDaPartida.stream()
+				.filter(rodada -> rodada.getFilmeEscolhido() == null && rodada.getFim() == null)
+				.collect(Collectors.toList());
 
-			if (rodadas.size() > 1) {
+//		List<RodadaEntity> rodadas = this.repository.findByPartidaAndFilmeEscolhidoIsNullAndFimIsNull(partidaAtual);
+
+		if (!CollectionUtils.isEmpty(rodadasPendentes)) {
+
+			if (rodadasPendentes.size() > 1) {
 				throw new RegraDeNegocioException("Erro ao obter a rodada atual",
 						"O usuário '" + partidaAtual.getUsuario().getNomeUsuario()
 								+ "' possui duas rodadas em andamento para a partida atual .");
 			}
 
-			return rodadas.get(0).toDTO();
+			return rodadasPendentes.get(0).toDTO();
 
 		}
+
+		List<FilmeEntity> filmesA = rodadasDaPartida.stream().map(rodada -> rodada.getFilmeUm())
+				.collect(Collectors.toList());
+
+		List<FilmeEntity> filmesB = rodadasDaPartida.stream().map(rodada -> rodada.getFilmeDois())
+				.collect(Collectors.toList());
+
+		filmesA.addAll(filmesB);
+
+		List<String> idsDeFilmes = filmesA.stream().map(filme -> filme.getId()).collect(Collectors.toList());
 
 		RodadaEntity rodada = new RodadaEntity();
 
@@ -60,7 +78,10 @@ public class RodadaServiceImpl implements RodadaService {
 		rodada.setInicio(dataHoraAtual);
 
 		FilmeEntity filmeUm = this.filmeService.obterFilmeAleatorio(null);
-		FilmeEntity filmeDois = this.filmeService.obterFilmeAleatorio(Arrays.asList(filmeUm.getId()));
+
+		idsDeFilmes.add(filmeUm.getId());
+
+		FilmeEntity filmeDois = this.filmeService.obterFilmeAleatorio(idsDeFilmes);
 
 		rodada.setFilmeUm(filmeUm);
 		rodada.setFilmeDois(filmeDois);
@@ -81,15 +102,21 @@ public class RodadaServiceImpl implements RodadaService {
 
 		PartidaEntity partidaAtual = this.partidaService.obterPartidaAtual();
 
-		List<RodadaEntity> rodadas = this.repository.findByPartidaAndFilmeEscolhidoIsNull(partidaAtual);
+		List<RodadaEntity> rodadasDaPartida = this.repository.findByPartida(partidaAtual);
 
-		if (CollectionUtils.isEmpty(rodadas)) {
+		List<RodadaEntity> rodadasPendentes = rodadasDaPartida.stream()
+				.filter(rodada -> rodada.getFilmeEscolhido() == null && rodada.getFim() == null)
+				.collect(Collectors.toList());
+
+//		List<RodadaEntity> rodadas = this.repository.findByPartidaAndFilmeEscolhidoIsNullAndFimIsNull(partidaAtual);
+
+		if (CollectionUtils.isEmpty(rodadasPendentes)) {
 			throw new RegraDeNegocioException("Erro ao responder a rodada atual",
 					"O usuário '" + partidaAtual.getUsuario().getNomeUsuario()
 							+ "' não possui rodada pendente de resposta para a partida atual .");
 		}
 
-		RodadaEntity rodadaEntity = rodadas.get(0);
+		RodadaEntity rodadaEntity = rodadasPendentes.get(0);
 
 		if (!filmeEscolhido.equalsIgnoreCase(rodadaEntity.getFilmeUm().getId())
 				&& !filmeEscolhido.equalsIgnoreCase(rodadaEntity.getFilmeDois().getId())) {
@@ -101,8 +128,35 @@ public class RodadaServiceImpl implements RodadaService {
 
 		rodadaEntity.setFilmeEscolhido(filmeEntity);
 
+		Instant dataHoraAtual = Instant.now();
+
+		rodadaEntity.setFim(dataHoraAtual);
+
+		List<RodadaEntity> rodadaRespondidasErradamente = rodadasDaPartida.stream().filter(rodada -> {
+			FilmeEntity filmeComMaiorPontuacao = null;
+			if (rodada.getFilmeUm().getPontuacao() > rodada.getFilmeDois().getPontuacao()) {
+				filmeComMaiorPontuacao = rodada.getFilmeUm();
+			} else {
+				rodada.getFilmeDois();
+			}
+			if (rodada.getFilmeEscolhido() != filmeComMaiorPontuacao) {
+				return true;
+			}
+			return false;
+		}).collect(Collectors.toList());
+
+		if (!CollectionUtils.isEmpty(rodadaRespondidasErradamente) && rodadaRespondidasErradamente.size() == 3) {
+			this.partidaService.encerrar(partidaAtual);
+		}
+
 		return rodadaEntity.toDTO();
 
+	}
+
+	@Override
+	public Page<RodadaDTO> listar(int page, int size) {
+		PageRequest pageRequest = PageRequest.of(page, size);
+		return this.repository.findAll(pageRequest).map(u -> u.toDTO());
 	}
 
 }

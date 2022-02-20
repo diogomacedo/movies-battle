@@ -11,6 +11,8 @@ import br.com.diogomacedo.moviesbattle.entities.RodadaEntity;
 @Repository
 public interface RodadaRepository extends JpaRepository<RodadaEntity, Long> {
 
-	List<RodadaEntity> findByPartidaAndFilmeEscolhidoIsNull(PartidaEntity partida);
+	List<RodadaEntity> findByPartida(PartidaEntity partida);
+
+	List<RodadaEntity> findByPartidaAndFilmeEscolhidoIsNullAndFimIsNull(PartidaEntity partida);
 
 }

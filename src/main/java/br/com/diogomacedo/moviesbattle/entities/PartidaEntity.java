@@ -52,10 +52,13 @@ public class PartidaEntity implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "partida")
 	private List<RodadaEntity> rodadas;
 
+	@Column(name = "porcentagem_acertos")
+	private Float porcentagemDeAcertos;
+
 	@Override
 	public String toString() {
 		return "PartidaEntity [id=" + id + ", usuario=" + usuario + ", inicio=" + inicio + ", fim=" + fim + ", rodadas="
-				+ rodadas + "]";
+				+ rodadas + ", porcentagemDeAcertos=" + porcentagemDeAcertos + "]";
 	}
 
 	public PartidaDTO toDTO() {
@@ -71,6 +74,7 @@ public class PartidaEntity implements Serializable {
 			List<RodadaDTO> rodadas = this.rodadas.stream().map(rodada -> rodada.toDTO()).collect(Collectors.toList());
 			partida.setRodadas(rodadas);
 		}
+		partida.setPorcentagemDeAcertos(this.porcentagemDeAcertos);
 		return partida;
 	}
 
@@ -91,6 +95,7 @@ public class PartidaEntity implements Serializable {
 			}).collect(Collectors.toList());
 			partida.setRodadas(rodadas);
 		}
+		partida.setPorcentagemDeAcertos(this.porcentagemDeAcertos);
 		return partida;
 	}
 

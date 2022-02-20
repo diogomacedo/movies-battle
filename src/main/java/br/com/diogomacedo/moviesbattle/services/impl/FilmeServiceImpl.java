@@ -34,7 +34,7 @@ public class FilmeServiceImpl implements FilmeService {
 		} else {
 			filmes = this.repository.findAll();
 		}
-		int quantidadeDeFilmes = filmes.size();
+		int quantidadeDeFilmes = filmes.size() - 1;
 		double numeroAleatorio = Math.random();
 		double numeroEscolhido = numeroAleatorio * quantidadeDeFilmes;
 		int numero = (int) Math.round(numeroEscolhido);

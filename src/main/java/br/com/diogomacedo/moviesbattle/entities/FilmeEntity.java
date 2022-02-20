@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.com.diogomacedo.moviesbattle.dtos.FilmeDTO;
 import lombok.Getter;
@@ -33,15 +34,22 @@ public class FilmeEntity implements Serializable {
 	private Integer ano;
 
 	@Column
-	private Float pontuacao;
+	private Float nota;
 
 	@Column(name = "total_de_votos")
 	private Integer totalDeVotos;
 
+	@Transient
+	private Float pontuacao;
+
+	public Float getPontuacao() {
+		return this.nota * this.totalDeVotos;
+	}
+
 	@Override
 	public String toString() {
-		return "FilmeEntity [id=" + id + ", titulo=" + titulo + ", ano=" + ano + ", pontuacao=" + pontuacao
-				+ ", totalDeVotos=" + totalDeVotos + "]";
+		return "FilmeEntity [id=" + id + ", titulo=" + titulo + ", ano=" + ano + ", nota=" + nota + ", totalDeVotos="
+				+ totalDeVotos + ", pontuacao=" + pontuacao + "]";
 	}
 
 	public FilmeDTO toDTO() {
@@ -49,8 +57,9 @@ public class FilmeEntity implements Serializable {
 		filme.setId(this.id);
 		filme.setTitulo(this.titulo);
 		filme.setAno(this.ano);
-		filme.setPontuacao(this.pontuacao);
+		filme.setNota(this.nota);
 		filme.setTotalDeVotos(this.totalDeVotos);
+		filme.setPontuacao(this.getPontuacao());
 		return filme;
 	}
 

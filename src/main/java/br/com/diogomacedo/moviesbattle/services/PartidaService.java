@@ -11,6 +11,8 @@ public interface PartidaService {
 
 	PartidaDTO encerrar() throws Exception;
 
+	PartidaDTO encerrar(PartidaEntity partida) throws Exception;
+
 	PartidaEntity obterPartidaAtual() throws Exception;
 
 	Page<PartidaDTO> listar(int page, int size);

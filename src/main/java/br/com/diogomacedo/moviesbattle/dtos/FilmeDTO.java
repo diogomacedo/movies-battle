@@ -11,13 +11,14 @@ public class FilmeDTO {
 	private String id;
 	private String titulo;
 	private Integer ano;
-	private Float pontuacao;
+	private Float nota;
 	private Integer totalDeVotos;
+	private Float pontuacao;
 
 	@Override
 	public String toString() {
-		return "FilmeDTO [id=" + id + ", titulo=" + titulo + ", ano=" + ano + ", pontuacao=" + pontuacao
-				+ ", totalDeVotos=" + totalDeVotos + "]";
+		return "FilmeDTO [id=" + id + ", titulo=" + titulo + ", ano=" + ano + ", nota=" + nota + ", totalDeVotos="
+				+ totalDeVotos + ", pontuacao=" + pontuacao + "]";
 	}
 
 	public FilmeEntity toEntity() {
@@ -25,8 +26,9 @@ public class FilmeDTO {
 		filme.setId(this.id);
 		filme.setTitulo(this.titulo);
 		filme.setAno(this.ano);
-		filme.setPontuacao(this.pontuacao);
+		filme.setNota(this.nota);
 		filme.setTotalDeVotos(this.totalDeVotos);
+		filme.setPontuacao(this.pontuacao);
 		return filme;
 	}
 
