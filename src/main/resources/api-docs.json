@@ -1,0 +1,234 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "OpenAPI definition",
+		"version": "v0"
+	},
+	"servers": [
+		{
+			"url": "http://localhost:8080/movies-battle/",
+			"description": "Generated server url"
+		}
+	],
+	"paths": {
+		"/rodadas/resposta": {
+			"post": {
+				"tags": [
+					"rodada-controller"
+				],
+				"operationId": "resposta",
+				"parameters": [
+					{
+						"name": "filmeEscolhido",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RodadaDTO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/partidas/iniciar": {
+			"post": {
+				"tags": [
+					"partida-controller"
+				],
+				"operationId": "iniciar",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PartidaDTO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/partidas/encerrar": {
+			"post": {
+				"tags": [
+					"partida-controller"
+				],
+				"operationId": "encerrar",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PartidaDTO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/rodadas/proxima": {
+			"get": {
+				"tags": [
+					"rodada-controller"
+				],
+				"operationId": "proxima",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/RodadaDTO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/ranking": {
+			"get": {
+				"tags": [
+					"ranking-controller"
+				],
+				"operationId": "listar",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/RankingDTO"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"FilmeDTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"titulo": {
+						"type": "string"
+					},
+					"ano": {
+						"type": "integer",
+						"format": "int32"
+					}
+				}
+			},
+			"PartidaDTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"usuario": {
+						"$ref": "#/components/schemas/UsuarioDTO"
+					},
+					"inicio": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"fim": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"porcentagemDeAcertos": {
+						"type": "number",
+						"format": "float"
+					}
+				}
+			},
+			"RodadaDTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"partida": {
+						"$ref": "#/components/schemas/PartidaDTO"
+					},
+					"filmeUm": {
+						"$ref": "#/components/schemas/FilmeDTO"
+					},
+					"filmeDois": {
+						"$ref": "#/components/schemas/FilmeDTO"
+					},
+					"filmeEscolhido": {
+						"$ref": "#/components/schemas/FilmeDTO"
+					},
+					"inicio": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"fim": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"UsuarioDTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"nomeCompleto": {
+						"type": "string"
+					},
+					"nomeUsuario": {
+						"type": "string"
+					}
+				}
+			},
+			"RankingDTO": {
+				"type": "object",
+				"properties": {
+					"nomeUsuario": {
+						"type": "string"
+					},
+					"nomeCompletoUsuario": {
+						"type": "string"
+					},
+					"pontuacao": {
+						"type": "number",
+						"format": "float"
+					},
+					"colocacao": {
+						"type": "integer",
+						"format": "int32"
+					}
+				}
+			}
+		}
+	}
+}

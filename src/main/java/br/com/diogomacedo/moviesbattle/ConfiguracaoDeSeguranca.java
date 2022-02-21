@@ -27,6 +27,7 @@ public class ConfiguracaoDeSeguranca extends WebSecurityConfigurerAdapter {
 		httpSecurity
 			.authorizeRequests()
 			.antMatchers("/h2-console/**").permitAll()
+			.antMatchers("/api-docs/**").permitAll()
 			.anyRequest().authenticated()
 			.and().httpBasic()
 			.and().headers().frameOptions().disable()
