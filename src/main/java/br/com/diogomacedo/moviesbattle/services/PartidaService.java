@@ -1,5 +1,7 @@
 package br.com.diogomacedo.moviesbattle.services;
 
+import java.util.List;
+
 import br.com.diogomacedo.moviesbattle.dtos.PartidaDTO;
 import br.com.diogomacedo.moviesbattle.entities.PartidaEntity;
 
@@ -12,5 +14,7 @@ public interface PartidaService {
 	PartidaDTO encerrar(PartidaEntity partida) throws Exception;
 
 	PartidaEntity obterPartidaAtual() throws Exception;
+
+	List<PartidaEntity> listarPartidasOrdenadasPorClassificacao();
 
 }
