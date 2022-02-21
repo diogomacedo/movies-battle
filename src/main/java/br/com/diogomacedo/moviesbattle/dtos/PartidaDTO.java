@@ -24,12 +24,6 @@ public class PartidaDTO {
 	private List<RodadaDTO> rodadas;
 	private Float porcentagemDeAcertos;
 
-	@Override
-	public String toString() {
-		return "PartidaDTO [id=" + id + ", usuario=" + usuario + ", inicio=" + inicio + ", fim=" + fim + ", rodadas="
-				+ rodadas + "]";
-	}
-
 	public PartidaEntity toEntity() {
 		PartidaEntity partida = new PartidaEntity();
 		partida.setId(this.id);

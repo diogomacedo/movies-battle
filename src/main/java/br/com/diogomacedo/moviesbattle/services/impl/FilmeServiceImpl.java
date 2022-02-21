@@ -3,12 +3,9 @@ package br.com.diogomacedo.moviesbattle.services.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import br.com.diogomacedo.moviesbattle.dtos.FilmeDTO;
 import br.com.diogomacedo.moviesbattle.entities.FilmeEntity;
 import br.com.diogomacedo.moviesbattle.exceptions.RegraDeNegocioException;
 import br.com.diogomacedo.moviesbattle.repositories.FilmeRepository;
@@ -19,12 +16,6 @@ public class FilmeServiceImpl implements FilmeService {
 
 	@Autowired
 	private FilmeRepository repository;
-
-	@Override
-	public Page<FilmeDTO> listar(int page, int size) {
-		PageRequest pageRequest = PageRequest.of(page, size);
-		return this.repository.findAll(pageRequest).map(u -> u.toDTO());
-	}
 
 	@Override
 	public FilmeEntity obterFilmeAleatorio(List<String> excecoes) {

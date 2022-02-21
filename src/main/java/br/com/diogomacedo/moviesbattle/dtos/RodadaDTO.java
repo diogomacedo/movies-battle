@@ -20,12 +20,6 @@ public class RodadaDTO {
 	private Instant inicio;
 	private Instant fim;
 
-	@Override
-	public String toString() {
-		return "RodadaDTO [id=" + id + ", partida=" + partida + ", filmeUm=" + filmeUm + ", filmeDois=" + filmeDois
-				+ ", filmeEscolhido=" + filmeEscolhido + ", inicio=" + inicio + ", fim=" + fim + "]";
-	}
-
 	public RodadaEntity toEntity() {
 		RodadaEntity rodada = new RodadaEntity();
 		rodada.setId(this.id);

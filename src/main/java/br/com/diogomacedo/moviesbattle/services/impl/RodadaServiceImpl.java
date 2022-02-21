@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -133,7 +131,7 @@ public class RodadaServiceImpl implements RodadaService {
 			if (rodada.getFilmeUm().getPontuacao() > rodada.getFilmeDois().getPontuacao()) {
 				filmeComMaiorPontuacao = rodada.getFilmeUm();
 			} else {
-				rodada.getFilmeDois();
+				filmeComMaiorPontuacao = rodada.getFilmeDois();
 			}
 			if (rodada.getFilmeEscolhido() != filmeComMaiorPontuacao) {
 				return true;
@@ -147,12 +145,6 @@ public class RodadaServiceImpl implements RodadaService {
 
 		return rodadaEntity.toDTO();
 
-	}
-
-	@Override
-	public Page<RodadaDTO> listar(int page, int size) {
-		PageRequest pageRequest = PageRequest.of(page, size);
-		return this.repository.findAll(pageRequest).map(u -> u.toDTO());
 	}
 
 }

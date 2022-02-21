@@ -16,12 +16,6 @@ public class UsuarioDTO {
 	private Instant dataCadastro;
 	private String senha;
 
-	@Override
-	public String toString() {
-		return "UsuarioDTO [id=" + id + ", nomeCompleto=" + nomeCompleto + ", nomeUsuario=" + nomeUsuario
-				+ ", dataCadastro=" + dataCadastro + ", senha=" + senha + "]";
-	}
-
 	public UsuarioEntity toEntity() {
 		UsuarioEntity usuario = new UsuarioEntity();
 		usuario.setNomeCompleto(this.nomeCompleto);

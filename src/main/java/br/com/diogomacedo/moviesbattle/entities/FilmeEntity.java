@@ -43,7 +43,8 @@ public class FilmeEntity implements Serializable {
 	private Float pontuacao;
 
 	public Float getPontuacao() {
-		return this.nota * this.totalDeVotos;
+		this.pontuacao = this.nota * this.totalDeVotos;
+		return this.pontuacao;
 	}
 
 	@Override

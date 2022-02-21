@@ -15,12 +15,6 @@ public class FilmeDTO {
 	private Integer totalDeVotos;
 	private Float pontuacao;
 
-	@Override
-	public String toString() {
-		return "FilmeDTO [id=" + id + ", titulo=" + titulo + ", ano=" + ano + ", nota=" + nota + ", totalDeVotos="
-				+ totalDeVotos + ", pontuacao=" + pontuacao + "]";
-	}
-
 	public FilmeEntity toEntity() {
 		FilmeEntity filme = new FilmeEntity();
 		filme.setId(this.id);

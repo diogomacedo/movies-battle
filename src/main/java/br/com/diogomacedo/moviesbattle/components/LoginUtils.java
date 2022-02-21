@@ -6,7 +6,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
-import br.com.diogomacedo.moviesbattle.dtos.UsuarioDTO;
 import br.com.diogomacedo.moviesbattle.entities.UsuarioEntity;
 import br.com.diogomacedo.moviesbattle.services.UsuarioService;
 
@@ -38,12 +37,6 @@ public class LoginUtils {
 		String usuarioLogado = this.obterUsuarioLogado();
 		UsuarioEntity usuarioEntity = this.usuarioService.buscar(usuarioLogado);
 		return usuarioEntity;
-	}
-
-	public UsuarioDTO obterUsuarioDTO() {
-		String usuarioLogado = this.obterUsuarioLogado();
-		UsuarioEntity usuarioEntity = this.usuarioService.buscar(usuarioLogado);
-		return usuarioEntity.toDTO();
 	}
 
 }
