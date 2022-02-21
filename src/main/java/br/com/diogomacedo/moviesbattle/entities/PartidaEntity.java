@@ -3,7 +3,6 @@ package br.com.diogomacedo.moviesbattle.entities;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,11 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import br.com.diogomacedo.moviesbattle.dtos.PartidaDTO;
-import br.com.diogomacedo.moviesbattle.dtos.RodadaDTO;
 import br.com.diogomacedo.moviesbattle.dtos.UsuarioDTO;
 import lombok.Getter;
 import lombok.Setter;
@@ -70,10 +67,6 @@ public class PartidaEntity implements Serializable {
 		}
 		partida.setInicio(this.inicio);
 		partida.setFim(this.fim);
-		if (!CollectionUtils.isEmpty(this.rodadas)) {
-			List<RodadaDTO> rodadas = this.rodadas.stream().map(rodada -> rodada.toDTO()).collect(Collectors.toList());
-			partida.setRodadas(rodadas);
-		}
 		partida.setPorcentagemDeAcertos(this.porcentagemDeAcertos);
 		return partida;
 	}
@@ -87,14 +80,6 @@ public class PartidaEntity implements Serializable {
 		}
 		partida.setInicio(this.inicio);
 		partida.setFim(this.fim);
-		if (!CollectionUtils.isEmpty(this.rodadas)) {
-			List<RodadaDTO> rodadas = this.rodadas.stream().map(rodada -> {
-				RodadaDTO rodadaDTO = new RodadaDTO();
-				rodadaDTO.setId(rodada.getId());
-				return rodadaDTO;
-			}).collect(Collectors.toList());
-			partida.setRodadas(rodadas);
-		}
 		partida.setPorcentagemDeAcertos(this.porcentagemDeAcertos);
 		return partida;
 	}

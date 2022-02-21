@@ -47,20 +47,11 @@ public class FilmeEntity implements Serializable {
 		return this.pontuacao;
 	}
 
-	@Override
-	public String toString() {
-		return "FilmeEntity [id=" + id + ", titulo=" + titulo + ", ano=" + ano + ", nota=" + nota + ", totalDeVotos="
-				+ totalDeVotos + ", pontuacao=" + pontuacao + "]";
-	}
-
 	public FilmeDTO toDTO() {
 		FilmeDTO filme = new FilmeDTO();
 		filme.setId(this.id);
 		filme.setTitulo(this.titulo);
 		filme.setAno(this.ano);
-		filme.setNota(this.nota);
-		filme.setTotalDeVotos(this.totalDeVotos);
-		filme.setPontuacao(this.getPontuacao());
 		return filme;
 	}
 
