@@ -1,0 +1,240 @@
+{
+	"info": {
+		"_postman_id": "dce24905-96f4-4d56-8b12-45c6a604a632",
+		"name": "movies-battle",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Listar ranking",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "umaSenhaQualquer",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "roserosa01",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/movies-battle/ranking",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies-battle",
+						"ranking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Iniciar partida",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "umaSenhaQualquer",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "roserosa01",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/movies-battle/partidas/iniciar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies-battle",
+						"partidas",
+						"iniciar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Encerrar partida",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "umaSenhaQualquer",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "roserosa01",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/movies-battle/partidas/encerrar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies-battle",
+						"partidas",
+						"encerrar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obter rodada",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "umaSenhaQualquer",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "roserosa01",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/movies-battle/rodadas/proxima",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies-battle",
+						"rodadas",
+						"proxima"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Responder rodada",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "umaSenhaQualquer",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "roserosa01",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/movies-battle/rodadas/resposta?filmeEscolhido=tt0854164",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies-battle",
+						"rodadas",
+						"resposta"
+					],
+					"query": [
+						{
+							"key": "filmeEscolhido",
+							"value": "tt0854164"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
