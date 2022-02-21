@@ -1,7 +1,5 @@
 package br.com.diogomacedo.moviesbattle.dtos;
 
-import java.time.Instant;
-
 import br.com.diogomacedo.moviesbattle.entities.UsuarioEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,15 +11,11 @@ public class UsuarioDTO {
 	private Long id;
 	private String nomeCompleto;
 	private String nomeUsuario;
-	private Instant dataCadastro;
-	private String senha;
 
 	public UsuarioEntity toEntity() {
 		UsuarioEntity usuario = new UsuarioEntity();
 		usuario.setNomeCompleto(this.nomeCompleto);
 		usuario.setNomeUsuario(this.nomeUsuario);
-		usuario.setSenha(this.senha);
-		usuario.setDataCadastro(this.dataCadastro);
 		return usuario;
 	}
 

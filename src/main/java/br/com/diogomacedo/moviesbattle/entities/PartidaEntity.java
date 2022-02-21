@@ -82,7 +82,7 @@ public class PartidaEntity implements Serializable {
 		PartidaDTO partida = new PartidaDTO();
 		partida.setId(this.id);
 		if (!ObjectUtils.isEmpty(this.usuario)) {
-			UsuarioDTO usuarioDTO = this.usuario.toDTOSimples();
+			UsuarioDTO usuarioDTO = this.usuario.toDTO();
 			partida.setUsuario(usuarioDTO);
 		}
 		partida.setInicio(this.inicio);
