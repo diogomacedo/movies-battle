@@ -18,6 +18,7 @@ public class PartidaDTO {
 	private Instant inicio;
 	private Instant fim;
 	private Float porcentagemDeAcertos;
+	private Float pontuacao;
 
 	public PartidaEntity toEntity() {
 		PartidaEntity partida = new PartidaEntity();
@@ -29,6 +30,7 @@ public class PartidaDTO {
 		partida.setInicio(this.inicio);
 		partida.setFim(this.fim);
 		partida.setPorcentagemDeAcertos(this.porcentagemDeAcertos);
+		partida.setPontuacao(this.pontuacao);
 		return partida;
 	}
 

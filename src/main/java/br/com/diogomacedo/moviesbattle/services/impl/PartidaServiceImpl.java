@@ -96,15 +96,18 @@ public class PartidaServiceImpl implements PartidaService {
 		int qtdeTotalDeRodadas = rodadasDaPartida.size();
 		int qtdeRodadasRespondidasCorretamente = rodadaRespondidasCorretamente.size();
 		float porcentagemAcertos = 0.0f;
+		float pontuacao = 0.0f;
 
 		if (qtdeTotalDeRodadas > 0) {
 			porcentagemAcertos = ((float) qtdeRodadasRespondidasCorretamente / qtdeTotalDeRodadas) * 100;
+			pontuacao = qtdeRodadasRespondidasCorretamente * porcentagemAcertos;
 		}
 
 		Instant dataHoraAtual = Instant.now();
 
 		partida.setFim(dataHoraAtual);
 		partida.setPorcentagemDeAcertos(porcentagemAcertos);
+		partida.setPontuacao(pontuacao);
 
 		this.partidaRepository.save(partida);
 

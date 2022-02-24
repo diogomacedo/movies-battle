@@ -52,10 +52,13 @@ public class PartidaEntity implements Serializable {
 	@Column(name = "porcentagem_acertos")
 	private Float porcentagemDeAcertos;
 
+	@Column
+	private Float pontuacao;
+
 	@Override
 	public String toString() {
 		return "PartidaEntity [id=" + id + ", usuario=" + usuario + ", inicio=" + inicio + ", fim=" + fim + ", rodadas="
-				+ rodadas + ", porcentagemDeAcertos=" + porcentagemDeAcertos + "]";
+				+ rodadas + ", porcentagemDeAcertos=" + porcentagemDeAcertos + ", pontuacao=" + pontuacao + "]";
 	}
 
 	public PartidaDTO toDTO() {
@@ -68,6 +71,7 @@ public class PartidaEntity implements Serializable {
 		partida.setInicio(this.inicio);
 		partida.setFim(this.fim);
 		partida.setPorcentagemDeAcertos(this.porcentagemDeAcertos);
+		partida.setPontuacao(this.pontuacao);
 		return partida;
 	}
 
@@ -81,6 +85,7 @@ public class PartidaEntity implements Serializable {
 		partida.setInicio(this.inicio);
 		partida.setFim(this.fim);
 		partida.setPorcentagemDeAcertos(this.porcentagemDeAcertos);
+		partida.setPontuacao(this.pontuacao);
 		return partida;
 	}
 
