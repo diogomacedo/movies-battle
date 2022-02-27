@@ -33,7 +33,7 @@ public class FilmeServiceImpl implements FilmeService {
 	}
 
 	@Override
-	public FilmeEntity obter(String id) {
+	public FilmeEntity obter(String id) throws RegraDeNegocioException {
 
 		if (!StringUtils.hasLength(id)) {
 			throw new RegraDeNegocioException("ID de filme inválido",
