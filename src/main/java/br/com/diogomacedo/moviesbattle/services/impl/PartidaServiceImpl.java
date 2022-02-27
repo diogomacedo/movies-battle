@@ -95,6 +95,7 @@ public class PartidaServiceImpl implements PartidaService {
 
 		int qtdeTotalDeRodadas = rodadasDaPartida.size();
 		int qtdeRodadasRespondidasCorretamente = rodadaRespondidasCorretamente.size();
+
 		float porcentagemAcertos = 0.0f;
 		float pontuacao = 0.0f;
 

@@ -13,6 +13,4 @@ public interface RodadaRepository extends JpaRepository<RodadaEntity, Long> {
 
 	List<RodadaEntity> findByPartida(PartidaEntity partida);
 
-	List<RodadaEntity> findByPartidaAndFilmeEscolhidoIsNullAndFimIsNull(PartidaEntity partida);
-
 }

@@ -19,15 +19,15 @@ public class RodadaController {
 	private RodadaService rodadaService;
 
 	@ResponseBody
-	@GetMapping("proxima")
+	@GetMapping("responder")
 	public RodadaDTO proxima() throws Exception {
 		RodadaDTO rodada = this.rodadaService.obter();
 		return rodada;
 	}
 
 	@ResponseBody
-	@PostMapping("resposta")
-	public RodadaDTO resposta(@RequestParam(value = "filmeEscolhido") String filmeEscolhido) throws Exception {
+	@PostMapping("responder")
+	public RodadaDTO responder(@RequestParam(value = "filmeEscolhido") String filmeEscolhido) throws Exception {
 		RodadaDTO rodadaDTO = this.rodadaService.responder(filmeEscolhido);
 		return rodadaDTO;
 	}
