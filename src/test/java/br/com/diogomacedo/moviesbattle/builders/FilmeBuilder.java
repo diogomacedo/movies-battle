@@ -34,7 +34,7 @@ public class FilmeBuilder {
 	}
 
 	public FilmeEntity obterFilme() {
-		return filmeEntity;
+		return this.filmeEntity;
 	}
 
 }
