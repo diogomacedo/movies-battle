@@ -17,21 +17,6 @@ public class UsuarioBuilder {
 		return usuarioBuilder;
 	}
 
-	public UsuarioBuilder comID(Long id) {
-		this.usuarioEntity.setId(id);
-		return this;
-	}
-
-	public UsuarioBuilder comNomeCompleto(String nomeCompleto) {
-		this.usuarioEntity.setNomeCompleto(nomeCompleto);
-		return this;
-	}
-
-	public UsuarioBuilder comNomeUsuario(String nomeUsuario) {
-		this.usuarioEntity.setNomeUsuario(nomeUsuario);
-		return this;
-	}
-
 	public UsuarioBuilder anaPaula() {
 		this.usuarioEntity = new UsuarioEntity();
 		this.usuarioEntity.setId(400l);
