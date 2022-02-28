@@ -1,5 +1,8 @@
 package br.com.diogomacedo.moviesbattle.services;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +39,7 @@ public class FilmeSeviceTest {
 
 		FilmeEntity filmeObtido = this.filmeService.obter("umIDQualquer");
 
-		Assertions.assertEquals(filmeObtido, filmeEntity);
+		Assertions.assertEquals(filmeEntity, filmeObtido);
 
 	}
 
@@ -47,11 +50,43 @@ public class FilmeSeviceTest {
 
 		Mockito.when(this.filmeRepository.findByIdIgnoreCase(Mockito.anyString())).thenReturn(filmeEntity);
 
-		RegraDeNegocioException exception = Assertions.assertThrows(RegraDeNegocioException.class, () -> {
-			this.filmeService.obter("");
-		});
+		RegraDeNegocioException exception = Assertions.assertThrows(RegraDeNegocioException.class,
+				() -> this.filmeService.obter(""));
 
 		Assertions.assertEquals(exception.getErro().getMensagem(), "O ID de filme '' que foi informado é inválido.");
+
+	}
+
+	@Test
+	public void deveObterFilmeAleatorio() {
+
+		FilmeEntity filmeEntity = FilmeBuilder.umFilme().aRedeSocial().obterFilme();
+
+		List<FilmeEntity> filmes = Arrays.asList(filmeEntity);
+
+		Mockito.when(this.filmeRepository.findAll()).thenReturn(filmes);
+
+		FilmeEntity filmeObtido = this.filmeService.obterFilmeAleatorio(null);
+
+		Assertions.assertEquals(filmeEntity, filmeObtido);
+
+	}
+
+	@Test
+	public void deveObterFilmeAleatorioIgnorandoLista() {
+
+		FilmeEntity filmeARedeSocial = FilmeBuilder.umFilme().aRedeSocial().obterFilme();
+		FilmeEntity filmeOCirculo = FilmeBuilder.umFilme().oCirculo().obterFilme();
+
+		List<String> filmesQueDevemSerIgnorados = Arrays.asList(filmeARedeSocial.getId());
+
+		List<FilmeEntity> filmesRetornados = Arrays.asList(filmeOCirculo);
+
+		Mockito.when(this.filmeRepository.findByIdNotIn(filmesQueDevemSerIgnorados)).thenReturn(filmesRetornados);
+
+		FilmeEntity filmeObtido = this.filmeService.obterFilmeAleatorio(filmesQueDevemSerIgnorados);
+
+		Assertions.assertEquals(filmeOCirculo, filmeObtido);
 
 	}
 
