@@ -61,11 +61,6 @@ public class PartidaServiceImpl implements PartidaService {
 
 		PartidaEntity partidaAtual = this.obterPartidaAtual();
 
-		if (ObjectUtils.isEmpty(partidaAtual)) {
-			throw new RegraDeNegocioException("Erro ao finalizar uma partida",
-					"O usuário '" + partidaAtual.getUsuario().getNomeUsuario() + "' ainda não iniciou uma partida.");
-		}
-
 		return this.encerrar(partidaAtual);
 
 	}
@@ -80,21 +75,28 @@ public class PartidaServiceImpl implements PartidaService {
 
 		List<RodadaEntity> rodadasDaPartida = partida.getRodadas();
 
-		List<RodadaEntity> rodadaRespondidasCorretamente = rodadasDaPartida.stream().filter(rodada -> {
-			FilmeEntity filmeComMaiorPontuacao = null;
-			if (rodada.getFilmeUm().getPontuacao() > rodada.getFilmeDois().getPontuacao()) {
-				filmeComMaiorPontuacao = rodada.getFilmeUm();
-			} else {
-				filmeComMaiorPontuacao = rodada.getFilmeDois();
-			}
-			if (rodada.getFilmeEscolhido() == filmeComMaiorPontuacao) {
-				return true;
-			}
-			return false;
-		}).collect(Collectors.toList());
+		int qtdeTotalDeRodadas = 0;
+		int qtdeRodadasRespondidasCorretamente = 0;
 
-		int qtdeTotalDeRodadas = rodadasDaPartida.size();
-		int qtdeRodadasRespondidasCorretamente = rodadaRespondidasCorretamente.size();
+		if (!CollectionUtils.isEmpty(rodadasDaPartida)) {
+
+			List<RodadaEntity> rodadaRespondidasCorretamente = rodadasDaPartida.stream().filter(rodada -> {
+				FilmeEntity filmeComMaiorPontuacao = null;
+				if (rodada.getFilmeUm().getPontuacao() > rodada.getFilmeDois().getPontuacao()) {
+					filmeComMaiorPontuacao = rodada.getFilmeUm();
+				} else {
+					filmeComMaiorPontuacao = rodada.getFilmeDois();
+				}
+				if (rodada.getFilmeEscolhido() == filmeComMaiorPontuacao) {
+					return true;
+				}
+				return false;
+			}).collect(Collectors.toList());
+
+			qtdeTotalDeRodadas = rodadasDaPartida.size();
+			qtdeRodadasRespondidasCorretamente = rodadaRespondidasCorretamente.size();
+
+		}
 
 		float porcentagemAcertos = 0.0f;
 		float pontuacao = 0.0f;

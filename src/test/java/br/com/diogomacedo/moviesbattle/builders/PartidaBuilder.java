@@ -20,7 +20,7 @@ public class PartidaBuilder {
 		return partidaBuilder;
 	}
 
-	public PartidaBuilder comID(Long id) {
+	public PartidaBuilder comId(Long id) {
 		this.partidaEntity.setId(id);
 		return this;
 	}
