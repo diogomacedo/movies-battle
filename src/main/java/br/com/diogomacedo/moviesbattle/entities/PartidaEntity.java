@@ -27,7 +27,7 @@ import lombok.Setter;
 @Table(name = "tb_partidas")
 @Getter
 @Setter
-public class PartidaEntity implements Serializable {
+public class PartidaEntity implements Serializable, Comparable<PartidaEntity> {
 
 	private static final long serialVersionUID = 8515055459874110204L;
 
@@ -87,6 +87,22 @@ public class PartidaEntity implements Serializable {
 		partida.setPorcentagemDeAcertos(this.porcentagemDeAcertos);
 		partida.setPontuacao(this.pontuacao);
 		return partida;
+	}
+
+	@Override
+	public int compareTo(PartidaEntity partidaEntity) {
+		if (this.pontuacao > partidaEntity.getPontuacao()) {
+			return -1;
+		} else if (this.pontuacao < partidaEntity.getPontuacao()) {
+			return 1;
+		} else {
+
+			int valorComparacao = this.usuario.getNomeCompleto()
+					.compareTo(partidaEntity.getUsuario().getNomeCompleto());
+
+			return valorComparacao;
+
+		}
 	}
 
 }

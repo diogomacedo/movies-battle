@@ -45,10 +45,10 @@ public class PartidaBuilder {
 		return this;
 	}
 
-	public PartidaBuilder comPorcentagemDeAcertos(Float porcentagemDeAcertos) {
-		this.partidaEntity.setPorcentagemDeAcertos(porcentagemDeAcertos);
-		return this;
-	}
+//	public PartidaBuilder comPorcentagemDeAcertos(Float porcentagemDeAcertos) {
+//		this.partidaEntity.setPorcentagemDeAcertos(porcentagemDeAcertos);
+//		return this;
+//	}
 
 	public PartidaBuilder comRodadas(List<RodadaEntity> rodadas) {
 		this.partidaEntity.setRodadas(rodadas);

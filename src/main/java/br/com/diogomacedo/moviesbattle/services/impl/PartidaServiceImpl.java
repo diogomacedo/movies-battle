@@ -2,7 +2,6 @@ package br.com.diogomacedo.moviesbattle.services.impl;
 
 import java.time.Instant;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -137,17 +136,7 @@ public class PartidaServiceImpl implements PartidaService {
 	@Override
 	public List<PartidaEntity> listarPartidasOrdenadasPorClassificacao() {
 		List<PartidaEntity> partidas = this.partidaRepository.findAll();
-		Collections.sort(partidas, new Comparator<PartidaEntity>() {
-			@Override
-			public int compare(PartidaEntity p1, PartidaEntity p2) {
-				if (p1.getPontuacao() > p2.getPontuacao()) {
-					return -1;
-				} else if (p1.getPontuacao() < p2.getPontuacao()) {
-					return 1;
-				}
-				return 0;
-			}
-		});
+		Collections.sort(partidas);
 		return partidas;
 	}
 

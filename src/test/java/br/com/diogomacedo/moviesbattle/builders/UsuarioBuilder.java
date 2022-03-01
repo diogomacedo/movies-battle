@@ -49,6 +49,7 @@ public class UsuarioBuilder {
 
 	public UsuarioBuilder andersonGois() {
 		this.usuarioEntity = new UsuarioEntity();
+		this.usuarioEntity.setId(200l);
 		this.usuarioEntity.setNomeCompleto("ANDERSON GOIS");
 		this.usuarioEntity.setNomeUsuario("andersongois19");
 		this.usuarioEntity.setSenha("maxminduim1988");

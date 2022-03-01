@@ -306,8 +306,8 @@ public class PartidaServiceTest {
 		List<PartidaEntity> partidas = Arrays.asList(partidaAndersonGois, partidaAnaPaula, partidaDiogoMacedo,
 				partidaRosemaryRosa);
 
-		List<PartidaEntity> partidasNaOrdemEsperada = Arrays.asList(partidaDiogoMacedo, partidaRosemaryRosa,
-				partidaAndersonGois, partidaAnaPaula);
+		List<PartidaEntity> partidasNaOrdemEsperada = Arrays.asList(partidaDiogoMacedo, partidaAndersonGois,
+				partidaRosemaryRosa, partidaAnaPaula);
 
 		Mockito.when(this.partidaRepository.findAll()).thenReturn(partidas);
 
