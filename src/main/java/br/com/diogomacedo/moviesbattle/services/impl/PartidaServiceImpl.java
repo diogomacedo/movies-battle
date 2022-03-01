@@ -140,9 +140,9 @@ public class PartidaServiceImpl implements PartidaService {
 		Collections.sort(partidas, new Comparator<PartidaEntity>() {
 			@Override
 			public int compare(PartidaEntity p1, PartidaEntity p2) {
-				if (p1.getPorcentagemDeAcertos() > p2.getPorcentagemDeAcertos()) {
+				if (p1.getPontuacao() > p2.getPontuacao()) {
 					return -1;
-				} else if (p1.getPorcentagemDeAcertos() < p2.getPorcentagemDeAcertos()) {
+				} else if (p1.getPontuacao() < p2.getPontuacao()) {
 					return 1;
 				}
 				return 0;
