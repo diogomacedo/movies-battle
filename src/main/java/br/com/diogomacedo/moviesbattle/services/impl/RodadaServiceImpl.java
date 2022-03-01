@@ -40,19 +40,23 @@ public class RodadaServiceImpl implements RodadaService {
 
 		List<RodadaEntity> rodadasDaPartida = this.repository.findByPartida(partidaAtual);
 
-		List<RodadaEntity> rodadasPendentes = rodadasDaPartida.stream()
-				.filter(rodada -> rodada.getFilmeEscolhido() == null && rodada.getFim() == null)
-				.collect(Collectors.toList());
+		if (!CollectionUtils.isEmpty(rodadasDaPartida)) {
 
-		if (!CollectionUtils.isEmpty(rodadasPendentes)) {
+			List<RodadaEntity> rodadasPendentes = rodadasDaPartida.stream()
+					.filter(rodada -> rodada.getFilmeEscolhido() == null && rodada.getFim() == null)
+					.collect(Collectors.toList());
 
-			if (rodadasPendentes.size() > 1) {
-				throw new RegraDeNegocioException("Erro ao obter a rodada atual",
-						"O usuário '" + partidaAtual.getUsuario().getNomeUsuario()
-								+ "' possui duas rodadas em andamento para a partida atual .");
+			if (!CollectionUtils.isEmpty(rodadasPendentes)) {
+
+				if (rodadasPendentes.size() > 1) {
+					throw new RegraDeNegocioException("Erro ao obter a rodada atual",
+							"O usuário '" + partidaAtual.getUsuario().getNomeUsuario()
+									+ "' possui duas rodadas em andamento para a partida atual .");
+				}
+
+				return rodadasPendentes.get(0).toDTO();
+
 			}
-
-			return rodadasPendentes.get(0).toDTO();
 
 		}
 
