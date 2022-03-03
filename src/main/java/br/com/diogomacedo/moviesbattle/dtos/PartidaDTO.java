@@ -1,6 +1,7 @@
 package br.com.diogomacedo.moviesbattle.dtos;
 
 import java.time.Instant;
+import java.util.Objects;
 
 import org.springframework.util.ObjectUtils;
 
@@ -32,6 +33,26 @@ public class PartidaDTO {
 		partida.setPorcentagemDeAcertos(this.porcentagemDeAcertos);
 		partida.setPontuacao(this.pontuacao);
 		return partida;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(fim, id, inicio, pontuacao, porcentagemDeAcertos, usuario);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PartidaDTO other = (PartidaDTO) obj;
+		return Objects.equals(fim, other.fim) && Objects.equals(id, other.id) && Objects.equals(inicio, other.inicio)
+				&& Objects.equals(pontuacao, other.pontuacao)
+				&& Objects.equals(porcentagemDeAcertos, other.porcentagemDeAcertos)
+				&& Objects.equals(usuario, other.usuario);
 	}
 
 }

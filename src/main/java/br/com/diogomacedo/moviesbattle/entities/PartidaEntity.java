@@ -55,12 +55,6 @@ public class PartidaEntity implements Serializable, Comparable<PartidaEntity> {
 	@Column
 	private Float pontuacao;
 
-	@Override
-	public String toString() {
-		return "PartidaEntity [id=" + id + ", usuario=" + usuario + ", inicio=" + inicio + ", fim=" + fim + ", rodadas="
-				+ rodadas + ", porcentagemDeAcertos=" + porcentagemDeAcertos + ", pontuacao=" + pontuacao + "]";
-	}
-
 	public PartidaDTO toDTO() {
 		PartidaDTO partida = new PartidaDTO();
 		partida.setId(this.id);

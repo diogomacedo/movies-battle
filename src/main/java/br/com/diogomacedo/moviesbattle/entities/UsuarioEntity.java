@@ -64,12 +64,6 @@ public class UsuarioEntity implements Persistable<Long>, Serializable {
 		this.entidadeNova = false;
 	}
 
-	@Override
-	public String toString() {
-		return "UsuarioEntity [id=" + id + ", nomeCompleto=" + nomeCompleto + ", nomeUsuario=" + nomeUsuario
-				+ ", dataCadastro=" + dataCadastro + ", senha=" + senha + "]";
-	}
-
 	public UsuarioDTO toDTO() {
 		UsuarioDTO usuario = new UsuarioDTO();
 		usuario.setId(this.id);

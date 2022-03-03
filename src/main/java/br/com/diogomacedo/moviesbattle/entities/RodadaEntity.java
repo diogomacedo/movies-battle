@@ -56,12 +56,6 @@ public class RodadaEntity implements Serializable {
 	@Column(name = "fim")
 	private Instant fim;
 
-	@Override
-	public String toString() {
-		return "RodadaEntity [id=" + id + ", partida=" + partida + ", filmeUm=" + filmeUm + ", filmeDois=" + filmeDois
-				+ ", filmeEscolhido=" + filmeEscolhido + ", inicio=" + inicio + ", fim=" + fim + "]";
-	}
-
 	public RodadaDTO toDTO() {
 		RodadaDTO rodada = new RodadaDTO();
 		rodada.setId(this.id);
