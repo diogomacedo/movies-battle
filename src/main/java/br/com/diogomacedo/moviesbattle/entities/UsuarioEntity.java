@@ -11,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.PostLoad;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -52,17 +50,6 @@ public class UsuarioEntity implements Persistable<Long>, Serializable {
 
 	@Transient
 	private boolean entidadeNova = true;
-
-	@Override
-	public boolean isNew() {
-		return this.entidadeNova;
-	}
-
-	@PrePersist
-	@PostLoad
-	void markNotNew() {
-		this.entidadeNova = false;
-	}
 
 	public UsuarioDTO toDTO() {
 		UsuarioDTO usuario = new UsuarioDTO();

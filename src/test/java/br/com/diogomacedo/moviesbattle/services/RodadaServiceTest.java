@@ -88,7 +88,10 @@ public class RodadaServiceTest {
 	@Test
 	public void deveObterUmaRodadaPendente() throws Exception {
 
-		PartidaEntity partidaEntity = PartidaBuilder.umaPartida().comId(1l).comInicio(Instant.now()).obterPartida();
+		UsuarioEntity usuarioEntity = UsuarioBuilder.umUsuario().anaPaula().obterUsuario();
+
+		PartidaEntity partidaEntity = PartidaBuilder.umaPartida().comId(1l).comInicio(Instant.now())
+				.comUsuario(usuarioEntity).obterPartida();
 
 		Mockito.when(this.partidaService.obterPartidaAtual()).thenReturn(partidaEntity);
 
