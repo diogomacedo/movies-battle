@@ -17,6 +17,7 @@ import br.com.diogomacedo.moviesbattle.builders.FilmeBuilder;
 import br.com.diogomacedo.moviesbattle.builders.PartidaBuilder;
 import br.com.diogomacedo.moviesbattle.builders.RodadaBuilder;
 import br.com.diogomacedo.moviesbattle.builders.UsuarioBuilder;
+import br.com.diogomacedo.moviesbattle.dtos.PartidaDTO;
 import br.com.diogomacedo.moviesbattle.dtos.RodadaDTO;
 import br.com.diogomacedo.moviesbattle.entities.FilmeEntity;
 import br.com.diogomacedo.moviesbattle.entities.PartidaEntity;
@@ -153,6 +154,111 @@ public class RodadaServiceTest {
 	}
 
 	@Test
+	public void deveResponderRodadaPendenteCorretamente() throws Exception {
+
+		PartidaEntity partidaEntity = PartidaBuilder.umaPartida().comId(1l).comInicio(Instant.now()).obterPartida();
+
+		Mockito.when(this.partidaService.obterPartidaAtual()).thenReturn(partidaEntity);
+
+		FilmeEntity filmeABruchaDeBlair = FilmeBuilder.umFilme().aBruxaDeBlair().obterFilme();
+
+		FilmeEntity filmeAFamiliaAddams = FilmeBuilder.umFilme().aFamiliaAddams().obterFilme();
+
+		RodadaEntity rodadaEntity = RodadaBuilder.umaRodada().comId(1l).comInicio(Instant.now())
+				.comPartida(partidaEntity).comFilmeUm(filmeABruchaDeBlair).comFilmeDois(filmeAFamiliaAddams)
+				.obterRodada();
+
+		List<RodadaEntity> rodadas = Arrays.asList(rodadaEntity);
+
+		Mockito.when(this.rodadaRepository.findByPartida(Mockito.any(PartidaEntity.class))).thenReturn(rodadas);
+
+		Mockito.when(this.filmeService.obter(Mockito.anyString())).thenReturn(filmeAFamiliaAddams);
+
+		RodadaDTO rodadaRespondida = this.rodadaService.responder(filmeAFamiliaAddams.getId());
+
+		Assertions.assertAll(() -> {
+			Assertions.assertNotNull(rodadaRespondida.getFilmeEscolhido());
+			Assertions.assertNotNull(rodadaRespondida.getFim());
+		});
+
+	}
+
+	@Test
+	public void deveResponderRodadaPendenteErradamenteSemFinalizarPartida() throws Exception {
+
+		PartidaEntity partidaEntity = PartidaBuilder.umaPartida().comId(1l).comInicio(Instant.now()).obterPartida();
+
+		Mockito.when(this.partidaService.obterPartidaAtual()).thenReturn(partidaEntity);
+
+		FilmeEntity filmeABruchaDeBlair = FilmeBuilder.umFilme().aBruxaDeBlair().obterFilme();
+
+		FilmeEntity filmeAFamiliaAddams = FilmeBuilder.umFilme().aFamiliaAddams().obterFilme();
+
+		RodadaEntity rodadaEntity = RodadaBuilder.umaRodada().comId(1l).comInicio(Instant.now())
+				.comPartida(partidaEntity).comFilmeUm(filmeAFamiliaAddams).comFilmeDois(filmeABruchaDeBlair)
+				.obterRodada();
+
+		List<RodadaEntity> rodadas = Arrays.asList(rodadaEntity);
+
+		Mockito.when(this.rodadaRepository.findByPartida(Mockito.any(PartidaEntity.class))).thenReturn(rodadas);
+
+		Mockito.when(this.filmeService.obter(Mockito.anyString())).thenReturn(filmeABruchaDeBlair);
+
+		RodadaDTO rodadaRespondida = this.rodadaService.responder(filmeABruchaDeBlair.getId());
+
+		Assertions.assertAll(() -> {
+			Assertions.assertNotNull(rodadaRespondida.getFilmeEscolhido());
+			Assertions.assertNotNull(rodadaRespondida.getFim());
+		});
+
+	}
+
+	@Test
+	public void deveResponderRodadaPendenteErradamenteFinalizandoAPartida() throws Exception {
+
+		PartidaEntity partidaEntity = PartidaBuilder.umaPartida().comId(1l).comInicio(Instant.now()).obterPartida();
+		PartidaDTO partidaDTO = partidaEntity.toDTO();
+
+		Mockito.when(this.partidaService.obterPartidaAtual()).thenReturn(partidaEntity);
+
+		FilmeEntity filmeABruchaDeBlair = FilmeBuilder.umFilme().aBruxaDeBlair().obterFilme();
+		FilmeEntity filmeAFamiliaAddams = FilmeBuilder.umFilme().aFamiliaAddams().obterFilme();
+
+		FilmeEntity filmeARedeSocial = FilmeBuilder.umFilme().aRedeSocial().obterFilme();
+		FilmeEntity filmeBladeOCacadorDeVampiros = FilmeBuilder.umFilme().bladeOCacadorDeVampiros().obterFilme();
+
+		FilmeEntity filmeConanOBarbaro = FilmeBuilder.umFilme().conanOBarbaro().obterFilme();
+		FilmeEntity filmeOCirculo = FilmeBuilder.umFilme().oCirculo().obterFilme();
+
+		RodadaEntity rodadaEntity01 = RodadaBuilder.umaRodada().comId(1l).comInicio(Instant.now()).comFim(Instant.now())
+				.comPartida(partidaEntity).comFilmeUm(filmeAFamiliaAddams).comFilmeDois(filmeABruchaDeBlair)
+				.comFilmeEscolhido(filmeAFamiliaAddams).obterRodada();
+
+		RodadaEntity rodadaEntity02 = RodadaBuilder.umaRodada().comId(1l).comInicio(Instant.now()).comFim(Instant.now())
+				.comPartida(partidaEntity).comFilmeUm(filmeARedeSocial).comFilmeDois(filmeBladeOCacadorDeVampiros)
+				.comFilmeEscolhido(filmeBladeOCacadorDeVampiros).obterRodada();
+
+		RodadaEntity rodadaEntity03 = RodadaBuilder.umaRodada().comId(1l).comInicio(Instant.now())
+				.comPartida(partidaEntity).comFilmeUm(filmeConanOBarbaro).comFilmeDois(filmeOCirculo).obterRodada();
+
+		List<RodadaEntity> rodadas = Arrays.asList(rodadaEntity01, rodadaEntity02, rodadaEntity03);
+
+		Mockito.when(this.rodadaRepository.findByPartida(Mockito.any(PartidaEntity.class))).thenReturn(rodadas);
+
+		Mockito.when(this.filmeService.obter(Mockito.anyString())).thenReturn(filmeOCirculo);
+
+		Mockito.when(this.partidaService.encerrar(partidaEntity)).thenReturn(partidaDTO);
+
+		RodadaDTO rodadaRespondida = this.rodadaService.responder(filmeOCirculo.getId());
+
+		Assertions.assertAll(() -> {
+			Assertions.assertNotNull(rodadaRespondida.getFilmeEscolhido());
+			Assertions.assertNotNull(rodadaRespondida.getFim());
+		});
+
+	}
+
+	@Test
 	public void deveLancarExcecaoAoResponderRodadaSemInformarOFilme() {
 
 		String filmeEscolhido = null;
@@ -187,6 +293,35 @@ public class RodadaServiceTest {
 		Assertions.assertEquals(exception.getErro().getMensagem(),
 				"O usuário '" + partidaEntity.getUsuario().getNomeUsuario()
 						+ "' não possui rodada pendente de resposta para a partida atual .");
+
+	}
+
+	@Test
+	public void deveLancarExcecaoAoResponderRodadaComIDDeFilmeInvalido() throws Exception {
+
+		PartidaEntity partidaEntity = PartidaBuilder.umaPartida().comId(1l).comInicio(Instant.now()).obterPartida();
+
+		Mockito.when(this.partidaService.obterPartidaAtual()).thenReturn(partidaEntity);
+
+		FilmeEntity filmeABruchaDeBlair = FilmeBuilder.umFilme().aBruxaDeBlair().obterFilme();
+
+		FilmeEntity filmeAFamiliaAddams = FilmeBuilder.umFilme().aFamiliaAddams().obterFilme();
+
+		RodadaEntity rodadaEntity = RodadaBuilder.umaRodada().comId(1l).comInicio(Instant.now())
+				.comPartida(partidaEntity).comFilmeUm(filmeABruchaDeBlair).comFilmeDois(filmeAFamiliaAddams)
+				.obterRodada();
+
+		List<RodadaEntity> rodadas = Arrays.asList(rodadaEntity);
+
+		Mockito.when(this.rodadaRepository.findByPartida(Mockito.any(PartidaEntity.class))).thenReturn(rodadas);
+
+		FilmeEntity filmeEscolhido = FilmeBuilder.umFilme().aRedeSocial().obterFilme();
+
+		RegraDeNegocioException exception = Assertions.assertThrows(RegraDeNegocioException.class,
+				() -> this.rodadaService.responder(filmeEscolhido.getId()));
+
+		Assertions.assertEquals(exception.getErro().getMensagem(),
+				"O ID de filme informado ('" + filmeEscolhido.getId() + "') não é uma opção válida.");
 
 	}
 
