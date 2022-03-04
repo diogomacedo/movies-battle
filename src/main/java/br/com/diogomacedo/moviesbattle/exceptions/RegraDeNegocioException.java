@@ -21,13 +21,4 @@ public class RegraDeNegocioException extends RuntimeException {
 		return erro;
 	}
 
-	public void setErro(DetalhesDaExcecaoPOJO erro) {
-		this.erro = erro;
-	}
-
-	@Override
-	public String toString() {
-		return "BussinesException [erro=" + erro + "]";
-	}
-
 }

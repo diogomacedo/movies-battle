@@ -14,8 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.data.domain.Persistable;
-
 import br.com.diogomacedo.moviesbattle.dtos.UsuarioDTO;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +22,7 @@ import lombok.Setter;
 @Table(name = "tb_usuarios")
 @Getter
 @Setter
-public class UsuarioEntity implements Persistable<Long>, Serializable {
+public class UsuarioEntity implements Serializable {
 
 	private static final long serialVersionUID = 1099413388761522762L;
 
