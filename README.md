@@ -38,17 +38,17 @@ Há 5 endpoints disponíveis. São eles:
 * POST /rodadas/reponder
 * GET /ranking
 
-### POST /partidas/iniciar
+#### POST /partidas/iniciar
 
 Como o nome sugere,este endpoints é responsável por iniciar uma partida.
 
 O jogado sempre deve iniciar uma partida para poder participar das rodadas
 
-### POST /partidas/encerrar
+#### POST /partidas/encerrar
 
-### GET /rodadas/responder
+#### GET /rodadas/responder
 
-### POST /rodadas/responder
+#### POST /rodadas/responder
 
-### GET /ranking
+#### GET /ranking
 
