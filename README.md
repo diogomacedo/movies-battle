@@ -24,9 +24,10 @@ Chama-se de **partida** um conjunto de rodadas. É através dela que se descobre
 
 1. O jogo só começa quando uma partida é iniciada;
 2. Uma partida pode ser encerrada a qualquer momento;
-3. Os filmes da rodada só são disponibilizados após a partida ter sido iniciada;
-4. O usuário pode cometer até 3 erros, ou seja, o jogador pode dar 3 respostas erradas;
-5. Caso o jogador erre três vezes, a partida é encerrada.
+3. Uma rodada só pode ser respondida após a partida ter sido iniciada;
+4. Enquanto a rodada corrente não for respondida, não é possível obter uma nova;
+5. Se o usuário cometer 3 erros, a partida é automaticamente encerrada;
+6. A pontuação da partida é calculada a partir da quantidade de acertos X a porcentagem de acertos;
 
 ## Endpoints disponíveis
 
