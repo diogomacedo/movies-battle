@@ -29,6 +29,7 @@ Chama-se de **partida** um conjunto de rodadas. É através dela que se descobre
 5. Se o usuário cometer 3 erros, a partida é automaticamente encerrada;
 6. A pontuação da partida é calculada a partir da quantidade de acertos X a porcentagem de acertos;
 
+
 ## Endpoints disponíveis
 
 Há 5 endpoints disponíveis. São eles:
